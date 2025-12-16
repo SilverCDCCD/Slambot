@@ -1,5 +1,5 @@
+require("dotenv").config();
 const { Client, Collection, Events, GatewayIntentBits, MessageFlags, Message } = require("discord.js");
-const { discordToken } = require("./config.json");
 const fs = require("node:fs");
 const path = require("node:path");
 
@@ -63,4 +63,4 @@ client.on(Events.InteractionCreate, async (interaction) => {
     }
 });
 
-client.login(discordToken);
+client.login(process.env.DISCORD_TOKEN);
