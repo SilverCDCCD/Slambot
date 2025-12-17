@@ -4,6 +4,6 @@ module.exports = {
         .setName("call")
         .setDescription("Call Slambot"),
     async execute(interaction) {
-        await interaction.reply("Slambot, at the ready!");
+        await interaction.reply("Slambot, awaiting orders!");
     }
 }
