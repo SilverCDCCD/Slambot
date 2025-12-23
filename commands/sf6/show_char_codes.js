@@ -7,7 +7,7 @@ module.exports = {
         .setDescription("Shows all character codes for Street Fighter 6."),
     async execute(interaction) {
         let result = "";
-        Object.keys(chars).forEach((key) => result = `${chars[key]}: ${key}\n`);
+        Object.keys(chars).forEach((key) => result += `${chars[key]}: ${key}\n`);
         await interaction.reply(result);
     }
 }
