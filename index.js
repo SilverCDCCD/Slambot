@@ -2,6 +2,7 @@ require("dotenv").config();
 const { Client, Collection, Events, GatewayIntentBits, MessageFlags, Message } = require("discord.js");
 const fs = require("node:fs");
 const path = require("node:path");
+const {deploy} = require("./deploy-commands.js");
 
 require("dotenv").config();
 
@@ -14,24 +15,7 @@ client.once(Events.ClientReady, (readyClient) => {
 });
 
 client.commands = new Collection();
-const foldersPath = path.join(__dirname, "commands");
-const commandFolders = fs.readdirSync(foldersPath);
-
-for (const folder of commandFolders) {
-    const commandsPath = path.join(foldersPath, folder);
-    const commandFiles = fs.readdirSync(commandsPath).filter((file) => file.endsWith(".js"));
-
-    for (const file of commandFiles) {
-        const filePath = path.join(commandsPath, file)
-        const command = require(filePath);
-        if (!('data' in command))
-            console.log(`[WARNING] The command at ${filePath} is missing required "data" property.`);
-        else if (!('execute' in command))
-            console.log(`[WARNING] The command at ${filePath} is missing required "execute" property.`);
-		else
-			client.commands.set(command.data.name, command);
-    }
-}
+deploy();
 
 client.on(Events.InteractionCreate, async (interaction) => {
     if (!interaction.isChatInputCommand())
